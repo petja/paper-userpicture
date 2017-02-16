@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>paper-userpicture demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../paper-userpicture.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+        .users { display : flex }
+        .users paper-userpicture { flex : 1 }
+    </style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic example</h3>
+      <demo-snippet>
+        <template>
+           <div class="users">
+              <paper-userpicture user-id="AAA" user-name="Petja"></paper-userpicture>
+              <paper-userpicture user-id="BBB" user-name="Oliver"></paper-userpicture>
+              <paper-userpicture user-id="CCC" user-name="Luke"></paper-userpicture>
+              <paper-userpicture user-id="DDD" user-name="Yusef"></paper-userpicture>
+            </div>
+        </template>
+      </demo-snippet>
+      <h3>Show names under pictures</h3>
+      <demo-snippet>
+        <template>
+           <div class="users">
+              <paper-userpicture user-id="EEE" show-name user-name="Henry"></paper-userpicture>
+              <paper-userpicture user-id="FFF" show-name user-name="Thomas"></paper-userpicture>
+              <paper-userpicture user-id="GGG" show-name user-name="Michael"></paper-userpicture>
+              <paper-userpicture user-id="HHH" show-name user-name="Leo"></paper-userpicture>
+            </div>
+        </template>
+      </demo-snippet>
+      <h3>Use real user picture</h3>
+      <demo-snippet>
+        <template>
+           <div class="users">
+              <paper-userpicture image="http://lorempixel.com/160/160?1" user-id="EEE" show-name user-name="Henry"></paper-userpicture>
+              <paper-userpicture image="http://lorempixel.com/160/160?2" user-id="FFF" show-name user-name="Thomas"></paper-userpicture>
+              <paper-userpicture image="http://lorempixel.com/160/160?3" user-id="GGG" show-name user-name="Michael"></paper-userpicture>
+              <paper-userpicture image="http://lorempixel.com/160/160?4" user-id="HHH" show-name user-name="Leo"></paper-userpicture>
+            </div>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
