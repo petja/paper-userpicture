@@ -3,7 +3,7 @@
   "main": "paper-userpicture.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "paper-avatar-behavior": "petja/paper-avatar-behavior"
+    "paper-avatar-behavior": "petja/paper-avatar-behavior#^1.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
