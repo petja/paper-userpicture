@@ -3,10 +3,15 @@
 <link rel="import" href="../paper-avatar-behavior/paper-avatar-behavior.html">
 
 <!--
-`paper-userpicture`
+`paper-userpicture` lets you create user avatars. If user doesn't have picture set, we'll automatically create placeholder containing user name initials. Check out the demo!
 
+### Styling
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-userpicture-size` | The size of picture | `5em`
+`--paper-userpicture-text-size` | The font-size of the placeholder initials | `calc(var(--paper-userpicture-size) / 2)`
 
-@demo demo/index.html 
+@demo demo/index.html
 -->
 
 <dom-module id="paper-userpicture">
@@ -44,31 +49,39 @@
                 opacity: 0.75;
             }
         </style>
+
         <iron-image id="image" src="[[image]]" sizing="cover" hidden$="[[!_imageVisible]]"></iron-image>
-        <div id="placeholder" hidden$="[[_imageVisible]]"><span id="letter">[[initial]]</span></div>
+
+        <div id="placeholder" hidden$="[[_imageVisible]]">
+            <span>[[initial]]</span>
+        </div>
+
         <div id="name" hidden$="[[!showName]]">{{userName}}</div>
     </template>
 
     <script>
-    Polymer({
+        Polymer({
 
-        is: 'paper-userpicture',
+            is: 'paper-userpicture',
 
-        behaviors: [AvatarBehavior],  
+            behaviors: [AvatarBehavior],  
 
-        properties: {
-            showName: {
-                type: Boolean,
-                value: false,
-                notify: true,
-                reflectToAttribute: true
+            properties: {
+                /*
+                 * Whether to show name of user under the picture or not
+                 */
+                showName: {
+                    type: Boolean,
+                    value: false,
+                    notify: true,
+                    reflectToAttribute: true
+                },
             },
-        },
 
-        colorChanged: function() {
-            this.$.placeholder.style.background = this.color;
-        }
+            colorChanged: function() {
+                this.$.placeholder.style.background = this.color;
+            }
 
-    });
+        });
     </script>
 </dom-module>
