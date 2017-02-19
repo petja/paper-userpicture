@@ -1,7 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-image/iron-image.html">
-
-<script src="../js-md5/build/md5.min.js"></script>
+<link rel="import" href="../paper-avatar-behavior/paper-avatar-behavior.html">
 
 <!--
 `paper-userpicture`
@@ -11,90 +10,65 @@
 -->
 
 <dom-module id="paper-userpicture">
-  <template>
-    <style>
-      :host {
-        display: block;
-        --paper-userpicture-size: 5em;
-        --paper-userpicture-text-size: calc(var(--paper-userpicture-size) / 2);
-      }
-    iron-image, #placeholder {
-        height: var(--paper-userpicture-size);
-        width: var(--paper-userpicture-size);
-        background: #ff703c;
-        border-radius: 50%;
-        align-items: center;
-        display: flex;
-        color: rgba(255, 255, 255, 0.75);
-        cursor: default;
-        margin: 0 auto;
-    }
-    #placeholder > span {
-        font-size: var(--paper-userpicture-text-size);
-        display: inline-block;
-        margin: 0 auto;
-    }
-    #name {
-        text-align: center;
-        margin-top: 0.75em;
-        font-size: 0.85em;
-        font-weight: bold;
-        opacity: 0.75;
-     }
-    </style>
-    <iron-image id="image" sizing="cover"></iron-image>
-    <div id="placeholder"><span id="letter"></span></div>
-    <div id="name" hidden$="[[!showName]]">{{userName}}</div>
-  </template>
+    <template>
+        <style is="custom-style">
+            :host {
+                display: block;
+                --paper-userpicture-size: 5em;
+                --paper-userpicture-text-size: calc(var(--paper-userpicture-size) / 2);
+            }
 
-  <script>
+            #image, #placeholder {
+                height: var(--paper-userpicture-size);
+                width: var(--paper-userpicture-size);
+                background: #808080;
+                border-radius: 50%;
+                align-items: center;
+                display: flex;
+                color: rgba(255, 255, 255, 0.75);
+                cursor: default;
+                margin: 0 auto;
+            }
+
+            #placeholder > span {
+                font-size: var(--paper-userpicture-text-size);
+                display: inline-block;
+                margin: 0 auto;
+            }
+
+            #name {
+                text-align: center;
+                margin-top: 0.75em;
+                font-size: 0.85em;
+                font-weight: bold;
+                opacity: 0.75;
+            }
+        </style>
+        <iron-image id="image" src="[[image]]" sizing="cover" hidden$="[[!_imageVisible]]"></iron-image>
+        <div id="placeholder" hidden$="[[_imageVisible]]"><span id="letter">[[initial]]</span></div>
+        <div id="name" hidden$="[[!showName]]">{{userName}}</div>
+    </template>
+
+    <script>
     Polymer({
 
-      is: 'paper-userpicture',
+        is: 'paper-userpicture',
 
-      properties: {
-        colors: {
-            type: Array,
-            value: ['#FFA726', '#FF7043', '#26A69A', '#26C6DA', '#5C6BC0', '#7E57C2', '#AB47BC', '#66BB6A']
-        },
-        userName: {
-          type: String,
-          value: 'Average Joe',
-          observer: '_updateBg'
-        },
-        userId: {
-            type: String,
-            observer: '_updateBg'
-        },
-        image: {
-            type: String,
-            observer: '_updateBg'
-        },
-        showName: {
-            type: Boolean,
-            value: false,
-            notify: true,
-            reflectToAttribute: true
-        }
-      },
+        behaviors: [AvatarBehavior],  
 
-        _updateBg: function() {
-            if(this.image !== void(0)) {
-                this.$.image.src = this.image;
+        properties: {
+            showName: {
+                type: Boolean,
+                value: false,
+                notify: true,
+                reflectToAttribute: true
+            },
+        },
 
-                this.$.image.style.display = 'block';
-                this.$.placeholder.style.display = 'none';
-            } else {
-                var hash = md5.array('' + this.userId)[0];
-                var color = this.colors[hash % this.colors.length];
-                this.$.placeholder.style.background = color;
-                this.$.letter.innerText = this.userName.charAt(0).toUpperCase();
-
-                this.$.image.style.display = 'none';
-                this.$.placeholder.style.display = 'flex';
-            }
+        colorChanged: function() {
+            this.$.placeholder.style.background = this.color;
         }
 
     });
-  </script>
+    </script>
 </dom-module>
